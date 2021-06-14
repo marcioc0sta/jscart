@@ -11,3 +11,9 @@ export const eqCheckers = arr => {
     allEq: arr.every(i => i === arr[0]),
   }
 }
+
+export const sum = arr => arr.reduce((acum, current) => {
+  return acum + current
+}, 0)
+
+export const round = total => Number(total.toFixed(2))

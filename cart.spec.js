@@ -1,6 +1,6 @@
 import data from './products.json';
 
-import { getPromotion, getPromotionalValues } from "./cart";
+import {getCart, getPromotion, getPromotionalValues} from "./cart";
 import {eqCheckers, findById} from "./helpers";
 import {PROMOTION_TYPES} from "./enum";
 
@@ -56,5 +56,44 @@ describe('cart', () => {
     const fullLookPrice = getPromotionalValues(fullLookArr)
     //then
     expect(fullLookPrice).toStrictEqual(expectedValues1)
+  });
+  it('should get the cart object accordingly', function () {
+    //given
+    const expectedValue = {
+      products: [
+        {
+          name: 'PINK PANTHER™ T-SHIRT',
+          category: 'T-SHIRTS'
+        },
+        {
+          name: 'RUBBERIZED PRINTED T-SHIRT',
+          category: 'T-SHIRTS'
+        },
+        {
+          name: 'CONTRAST SLOGAN T-SHIRT',
+          category: 'T-SHIRTS'
+        },
+        {
+          name: 'KNIT JOGGING PANTS',
+          category: 'PANTS'
+        },
+        {
+          name: 'ASYMMETRICAL LEATHER SLIDE HEELS',
+          category: 'SHOES'
+        },
+        {
+          name: 'SLINGBACK KITTEN HEEL SHOES WITH METAL DETAIL',
+          category: 'SHOES'
+        }
+      ],
+      promotion: 'TRIPLE LOOK',
+      totalPrice: 784.94,
+      discountValue: 130,
+      discount: '14.21%'
+    }
+    //when
+    const result = getCart(trippleLookArr)
+    //then
+    expect(result).toEqual(expectedValue)
   });
 });

@@ -1,5 +1,5 @@
 import {PROMOTION_TYPES} from "./enum";
-import {eqCheckers, findById} from "./helpers";
+import { eqCheckers, findById, round, sum } from "./helpers";
 
 export const getPromotion = productsArray => {
   const categories = productsArray.map(item => findById(item).category)
@@ -18,5 +18,27 @@ export const getPromotionalValues = productsArray => {
     return [...findById(item).promotions]
       .find(item => item.looks.includes(promotion))?.price ?? findById(item).regularPrice
   })
+}
+
+export const getCart = productsArray => {
+  const promotion = getPromotion(productsArray)
+  const fullProducts = productsArray.map(findById)
+
+  const products = fullProducts.map(({ name, category }) => ({ name, category }))
+  const regularPrices = fullProducts.map(item => item.regularPrice)
+  const promotionalPrices = getPromotionalValues(productsArray)
+
+  const fullPrice = round(sum(regularPrices))
+  const totalPrice = round(sum(promotionalPrices))
+  const discountValue = round(fullPrice - totalPrice)
+  const discount = `${round((fullPrice - totalPrice) / fullPrice * 100)}%`
+
+  return {
+    products,
+    promotion,
+    totalPrice,
+    discountValue,
+    discount
+  }
 }
 
