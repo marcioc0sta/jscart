@@ -1,10 +1,15 @@
 import data from './products.json';
 
-import { getPromotion } from "./cart";
+import { getPromotion, getPromotionalValues } from "./cart";
 import {eqCheckers, findById} from "./helpers";
 import {PROMOTION_TYPES} from "./enum";
 
 const { products } = data;
+
+const fullLookArr = [120, 230, 310, 490]
+const doubleLookArr = [130, 140, 230, 260]
+const singleLookArr = [110, 120, 130, 140]
+const trippleLookArr = [110, 130, 140, 230, 310, 330]
 
 describe('cart', () => {
   it('should return a product based on its id', function ()  {
@@ -33,11 +38,6 @@ describe('cart', () => {
     expect(check3.byAmount(3)).toBe(false)
   });
   it('should get the promotions accordingly', function () {
-    //given
-    const fullLookArr = [120, 230, 310, 490]
-    const doubleLookArr = [130, 140, 230, 260]
-    const singleLookArr = [110, 120, 130, 140]
-    const trippleLookArr = [110, 130, 140, 230, 310, 330]
     //when
     const full = getPromotion(fullLookArr)
     const double = getPromotion(doubleLookArr)
@@ -48,5 +48,13 @@ describe('cart', () => {
     expect(double).toStrictEqual(PROMOTION_TYPES.DOUBLE_LOOK)
     expect(single).toStrictEqual(PROMOTION_TYPES.SINGLE_LOOK)
     expect(tripple).toStrictEqual(PROMOTION_TYPES.TRIPLE_LOOK)
+  });
+  it('should get the promotional values', function () {
+    //given
+    const expectedValues1 = [99.99, 144.99, 79.99, 79.99]
+    //when
+    const fullLookPrice = getPromotionalValues(fullLookArr)
+    //then
+    expect(fullLookPrice).toStrictEqual(expectedValues1)
   });
 });

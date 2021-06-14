@@ -1,7 +1,6 @@
 import {PROMOTION_TYPES} from "./enum";
 import {eqCheckers, findById} from "./helpers";
 
-
 export const getPromotion = productsArray => {
   const categories = productsArray.map(item => findById(item).category)
   const check = eqCheckers(categories)
@@ -11,5 +10,13 @@ export const getPromotion = productsArray => {
   if(check.byAmount(3)) return PROMOTION_TYPES.TRIPLE_LOOK
 
   return PROMOTION_TYPES.FULL_LOOK
+}
+
+export const getPromotionalValues = productsArray => {
+  const promotion = getPromotion(productsArray)
+  return productsArray.map(item => {
+    return [...findById(item).promotions]
+      .find(item => item.looks.includes(promotion))?.price ?? findById(item).regularPrice
+  })
 }
 
