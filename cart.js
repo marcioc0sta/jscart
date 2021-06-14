@@ -1,6 +1,8 @@
-const { products } = require('./products.json');
+import data from './products.json'
 
-const findById = id => {
-  return products.find(item => item.id === id)
+const { products } = data
+
+export const findById = id => {
+  return products.find(item => item.id === id) || 'product not found'
 }
 
