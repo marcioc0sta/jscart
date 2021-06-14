@@ -1,18 +1,6 @@
-import data from './products.json'
 import {PROMOTION_TYPES} from "./enum";
+import {eqCheckers, findById} from "./helpers";
 
-const { products } = data
-
-export const findById = id => {
-  return products.find(item => item.id === id) || 'product not found'
-}
-
-export const eqCheckers = arr => {
-  return {
-    byAmount: amount => arr.filter(i => i === arr[0]).length === amount,
-    allEq: arr.every(i => i === arr[0]),
-  }
-}
 
 export const getPromotion = productsArray => {
   const categories = productsArray.map(item => findById(item).category)

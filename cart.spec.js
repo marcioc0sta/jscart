@@ -1,6 +1,7 @@
 import data from './products.json';
 
-import { findById, eqCheckers, getPromotion } from "./cart";
+import { getPromotion } from "./cart";
+import {eqCheckers, findById} from "./helpers";
 import {PROMOTION_TYPES} from "./enum";
 
 const { products } = data;
