@@ -62,10 +62,6 @@ describe('cart', () => {
     const expectedValue = {
       products: [
         {
-          name: 'PINK PANTHER™ T-SHIRT',
-          category: 'T-SHIRTS'
-        },
-        {
           name: 'RUBBERIZED PRINTED T-SHIRT',
           category: 'T-SHIRTS'
         },
@@ -78,21 +74,17 @@ describe('cart', () => {
           category: 'PANTS'
         },
         {
-          name: 'ASYMMETRICAL LEATHER SLIDE HEELS',
-          category: 'SHOES'
-        },
-        {
-          name: 'SLINGBACK KITTEN HEEL SHOES WITH METAL DETAIL',
-          category: 'SHOES'
+          name: 'MENSWEAR PANTS',
+          category: 'PANTS'
         }
       ],
-      promotion: 'TRIPLE LOOK',
-      totalPrice: 784.94,
-      discountValue: 130,
-      discount: '14.21%'
+      promotion: 'DOUBLE LOOK',
+      totalPrice: 504.95,
+      discountValue: 25,
+      discount: '4.72%'
     }
     //when
-    const result = getCart(trippleLookArr)
+    const result = getCart(doubleLookArr)
     //then
     expect(result).toEqual(expectedValue)
   });
