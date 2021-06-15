@@ -17,3 +17,10 @@ export const sum = arr => arr.reduce((acum, current) => {
 }, 0)
 
 export const round = total => Number(total.toFixed(2))
+
+export const pipeFunctions = (...functions) => args =>
+  functions.reduce((arg, fn) => fn(arg), args)
+
+export const fMap = arr => identity => {
+  return arr.map(identity)
+}

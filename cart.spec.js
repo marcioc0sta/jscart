@@ -1,7 +1,7 @@
 import data from './products.json';
 
 import {getCart, getPromotion, getPromotionalValues} from "./cart";
-import {eqCheckers, findById} from "./helpers";
+import {eqCheckers, findById, pipeFunctions, fMap} from "./helpers";
 import {PROMOTION_TYPES} from "./enum";
 
 const { products } = data;
@@ -95,5 +95,33 @@ describe('cart', () => {
     const result = getCart(trippleLookArr)
     //then
     expect(result).toEqual(expectedValue)
+  });
+  it(`given an initial value, product of an function will get passed as argument
+   to the subsequent function`, () => {
+    // given
+    const funcA = num => 1 + num // 1 + 1
+    const funcB = resultOfA => 2 + resultOfA // 2 + 2
+    const funcC = resultOfB => 12 + funcA(resultOfB) * funcB(resultOfB) // 12 + 5 * 6
+    const funcD = resultOFC => `the result is ${resultOFC}` // expectedResult
+
+    const expectedResult = 'the result is 42'
+    // when
+    const result = pipeFunctions(funcA, funcB, funcC, funcD)(1)
+
+    // then
+    expect(result).toEqual(expectedResult)
+  });
+  it('should loop through an array and returns accordingly by extraction identity', function () {
+    //given
+    const givenArr = [{name: 'bill', id: '123', lastname: 'clinton'}, {name: 'richard', id: '456', lastname: 'nixon'}]
+    //when
+    const identity = ({name, lastname}) => ({name, lastname})
+    const result = fMap(givenArr)(identity)
+    //then
+    expect(result)
+      .toStrictEqual([
+        {name: 'bill', lastname: 'clinton'},
+        {name: 'richard', lastname: 'nixon'}
+      ])
   });
 });
